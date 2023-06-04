@@ -8,7 +8,7 @@ const Resetpassword = () => {
       <br />
       <br />
       <div class="my-5 w-25 bg-white rounded-3 mx-auto p-4 ">
-        <h3 className="text-center">Reset your password </h3>
+        <h3 className="text-center title">Reset your password </h3>
         <p className="text-center">Please enter your new password </p>
         <form action="">
           <CustomInput type="password" label="New Password" id="pass" />

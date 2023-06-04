@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Stepper } from "react-form-stepper";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
@@ -26,24 +25,48 @@ const props = {
   },
 };
 
-export const Addblog = () => {
+const Addproduct = () => {
   const [desc, setDesc] = useState();
   const handleDesc = (e) => {
     setDesc(e);
   };
   return (
     <div>
-      <h3 className="mb-4 title"> Add Blog</h3>
-      <Stepper
-        steps={[
-          { label: "Add blog details" },
-          { label: "Upload images" },
-          { label: "Finish" },
-        ]}
-        activeStep={1}
-      />
-      <div className="">
-        <form action="">
+      <h3 className="mb-4 title">Addproduct</h3>
+      <div>
+        <form>
+          <CustomInput type="text" label="Enter a product Tittle " />
+
+          <div className="mb-3 my-3">
+            <ReactQuill
+              theme="snow"
+              value={desc}
+              onChange={(evt) => {
+                handleDesc(evt);
+              }}
+            />
+          </div>
+          <CustomInput type="number" label="Enter a product Price " />
+          <div className="mb-3 my-3">
+            <select name="" className="form-control py-3 mb-3" id="">
+              <option value="">Select Brand</option>
+            </select>
+          </div>
+          <div className="mb-3 my-3">
+            <select name="" className="form-control py-3 mb-3" id="">
+              <option value="">Select Category</option>
+            </select>
+          </div>
+
+          <div className="mb-3 my-3">
+            <select name="" className="form-control py-3 mb-3" id="">
+              <option value="">Select color</option>
+            </select>
+          </div>
+          <div className="mb-3 ">
+            <CustomInput type="number" label="Enter a product Quantty " />
+          </div>
+
           <Dragger {...props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -56,25 +79,17 @@ export const Addblog = () => {
               uploading company data or other banned files.
             </p>
           </Dragger>
-          <div className="mt-3">
-            <CustomInput type="text" lable="Enter Blog Title" />
-          </div>
 
-          <select name="" className="form-control py-3 mb-3" id="">
-            <option value="">Select Blog Category</option>
-          </select>
-          <ReactQuill
-            theme="snow"
-            value={desc}
-            onChange={(evt) => {
-              handleDesc(evt);
-            }}
-          />
-          <button className="btn btn-success border-0 rounded-3 my-3">
-            Add Blog
+          <button
+            className="btn btn-success border-0 rounded-3 my-3"
+            type="submit"
+          >
+            Add Product
           </button>
         </form>
       </div>
     </div>
   );
 };
+
+export default Addproduct;

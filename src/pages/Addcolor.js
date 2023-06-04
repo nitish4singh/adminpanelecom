@@ -1,13 +1,13 @@
 import React from "react";
 import CustomInput from "../components/CustomInput";
 
-const Addblogcat = () => {
+const Addcolor = () => {
   return (
     <div>
       <h3 className="mb-4 title">Add blog Category</h3>
       <div>
         <form action="">
-          <CustomInput type="text label='Enter Blog Category " />
+          <CustomInput type="color" label="Enter the Color" />
           <button
             className="btn btn-success border-0 rounded-3 my-3"
             type="submit"
@@ -20,4 +20,4 @@ const Addblogcat = () => {
   );
 };
 
-export default Addblogcat;
+export default Addcolor;

@@ -1,18 +1,18 @@
 import React from "react";
 import CustomInput from "../components/CustomInput";
 
-const Addblogcat = () => {
+const Addcat = () => {
   return (
     <div>
-      <h3 className="mb-4 title">Add blog Category</h3>
+      <h3 className="mb-4 title">Add Category</h3>
       <div>
         <form action="">
-          <CustomInput type="text label='Enter Blog Category " />
+          <CustomInput type="text label='Enter  Category " />
           <button
             className="btn btn-success border-0 rounded-3 my-3"
             type="submit"
           >
-            Add Blog
+            Add Category
           </button>
         </form>
       </div>
@@ -20,4 +20,4 @@ const Addblogcat = () => {
   );
 };
 
-export default Addblogcat;
+export default Addcat;
