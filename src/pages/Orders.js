@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Table } from "antd";
 const columns = [
   {
@@ -27,10 +27,10 @@ for (let i = 0; i < 46; i++) {
     staus: `London, Park Lane no. ${i}`,
   });
 }
-export const Blogcatlist = () => {
+const Orders = () => {
   return (
     <div>
-      <h3 className="mb-4">Blog cetegories</h3>
+      <h3 className="mb-4">Order List</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -38,4 +38,4 @@ export const Blogcatlist = () => {
   );
 };
 
-export default Blogcatlist;
+export default Orders;
