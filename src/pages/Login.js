@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+
+
+let schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Email should be valid")
+    .required("Email is Required"),
+  password: yup.string().required("Password is Required"),
+});
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate;
-  let schema = Yup.object().shape({
-    email: Yup.string()
-      .email("Email should be valid ")
-      .required("Email is Required"),
-    password: Yup.string().required("password is required "),
-  });
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,27 +25,32 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
     },
   });
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const authState = useSelector((state) => state);
+
+  const { user, isError, isSuccess, isLoading, message } = authState.auth;
+
   useEffect(() => {
-    if (!user ==null || isSuccess) {
+    if (isSuccess) {
       navigate("admin");
     } else {
-      alert("not admin");
+      navigate("");
     }
-  }, [user, isLoading, isError, isSuccess, message]);
+  }, [user, isError, isSuccess, isLoading,navigate]);
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
       <br />
       <br />
-      <div class="my-5 w-25 bg-white rounded-3 mx-auto p-4 ">
+      <br />
+      <br />
+      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
         <h3 className="text-center title">Login</h3>
-        <p className="text-center">Login to your account to continue</p>
+        <p className="text-center">Login to your account to continue.</p>
+        <div className="error text-center">
+          {message.message === "Rejected" ? "You are not an Admin" : ""}
+        </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
