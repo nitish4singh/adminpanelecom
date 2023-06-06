@@ -13,13 +13,13 @@ const columns = [
   {
     title: "Title",
     dataIndex: "title",
-    sorter: (a, b) => a.title.length - b.title.length,
+    // sorter: (a, b) => a.title.length - b.title.length,
   },
 
   {
     title: "Category",
     dataIndex: "category",
-    sorter: (a, b) => a.category.length - b.category.length,
+    //sorter: (a, b) => a.category.length - b.category.length,
   },
 
   {
@@ -33,13 +33,16 @@ const BlogList = () => {
   useEffect(() => {
     dispatch(getBlogs());
   }, []);
+
   const blogState = useSelector((state) => state.blog.blogs);
+  console.log("hello world");
   const data1 = [];
   for (let i = 0; i < blogState.length; i++) {
     data1.push({
-      key: i,
+      key: i + 1,
       title: blogState[i].title,
       category: blogState[i].category,
+
       action: (
         <>
           <Link to="/" className=" fs-3 text-danger">
@@ -52,7 +55,7 @@ const BlogList = () => {
       ),
     });
   }
-  console.log(data1);
+  console.log(` tero bau ko tauyko ${data1}`);
   return (
     <div>
       <h3 className="mb-4 title">Blogs</h3>
