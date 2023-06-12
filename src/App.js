@@ -15,7 +15,7 @@ import ColorList from "./pages/ColorList";
 import Categorylist from "./pages/categorylist";
 import Brandlist from "./pages/Brandlist";
 import Productlist from "./pages/Productlist";
-import  Addblog  from "./pages/Addblog";
+import Addblog from "./pages/Addblog";
 
 import Addblogcat from "./pages/Addblogcat";
 import Addcolor from "./pages/Addcolor";
@@ -24,7 +24,6 @@ import Addbrand from "./pages/Addbrand";
 import Addproduct from "./pages/Addproduct";
 import Couponlist from "./pages/Couponlist";
 import AddCoupon from "./pages/AddCoupon";
-
 
 function App() {
   return (

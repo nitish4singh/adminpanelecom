@@ -16,6 +16,8 @@ let schema = yup.object().shape({
   title: yup.string().required("Brand Name is Required"),
 });
 
+
+
 const Addbrand = () => {
   const dispatch = useDispatch();
   const location = useLocation();
