@@ -13,6 +13,9 @@ const createProduct = async (product) => {
   return response.data;
 };
 
+
+
+
 const productService = {
   getProducts,
   createProduct,

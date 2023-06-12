@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import blogService from "./blogService";
 
-export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
+export const getAllBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
   try {
     return await blogService.getBlogs();
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+
 export const createBlogs = createAsyncThunk(
   "blog/create-blogs",
   async (blogData, thunkAPI) => {
@@ -65,16 +67,16 @@ export const blogSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBlogs.pending, (state) => {
+      .addCase(getAllBlogs.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBlogs.fulfilled, (state, action) => {
+      .addCase(getAllBlogs.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.blogs = action.payload;
       })
-      .addCase(getBlogs.rejected, (state, action) => {
+      .addCase(getAllBlogs.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
