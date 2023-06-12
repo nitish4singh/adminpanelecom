@@ -8,7 +8,6 @@ export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(error);
   }
 });
-
 export const createBlogs = createAsyncThunk(
   "blog/create-blogs",
   async (blogData, thunkAPI) => {

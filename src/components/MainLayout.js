@@ -7,8 +7,8 @@ import {
   AiOutlineBgColors,
 } from "react-icons/ai";
 // import { RiCouponLine } from "react-icons/ri";
-// import { ToastContainer } from "react-toastify";
-//import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { ImBlog } from "react-icons/im";
@@ -231,7 +231,7 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
-          {/* <ToastContainer
+          <ToastContainer
             position="top-right"
             autoClose={250}
             hideProgressBar={false}
@@ -241,7 +241,7 @@ const MainLayout = () => {
             pauseOnFocusLoss
             draggable
             theme="light"
-          /> */}
+          />
           <Outlet />
         </Content>
       </Layout>
