@@ -30,9 +30,16 @@ const columns = [
   },
 ];
 
+
 const Bloglist = () => {
   const [open, setOpen] = useState(false);
   const [blogId, setblogId] = useState("");
+const dispatch = useDispatch();
+useEffect(() => {
+  dispatch(resetState());
+  dispatch(getAllBlogs());
+}, []);
+  
   const showModal = (e) => {
     setOpen(true);
     setblogId(e);
@@ -41,11 +48,7 @@ const Bloglist = () => {
   const hideModal = () => {
     setOpen(false);
   };
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(resetState());
-    dispatch(getAllBlogs());
-  }, []);
+  
   const getBlogState = useSelector((state) => state.blogs.blogs);
   const data1 = [];
   for (let i = 0; i < getBlogState.length; i++) {

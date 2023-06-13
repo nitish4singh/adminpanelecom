@@ -65,6 +65,7 @@ export const blogSlice = createSlice({
   name: "blogs",
   initialState,
   reducers: {},
+  
   extraReducers: (builder) => {
     builder
       .addCase(getAllBlogs.pending, (state) => {
