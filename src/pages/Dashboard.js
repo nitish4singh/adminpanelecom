@@ -148,7 +148,7 @@ const Dashboard = () => {
           </div>
           <div className="d-flex flex-column align-items-end">
            
-            <p className="mb-0  desc">Income in last year from today</p>
+            <p className="mb-0  desc">Income in last year from today </p>
           </div>
         </div>
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
