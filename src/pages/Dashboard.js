@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
-import { useDispatch } from "react-redux";
-import useSelection from "antd/es/table/hooks/useSelection";
-import { useEffect } from "react";
-import { getMonthlyData, getYearlyData } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getMonthlyData,
+  getOrders,
+  getYearlyData,
+} from "../features/auth/authSlice";
+
 const columns = [
   {
     title: "SNo",
@@ -16,34 +19,35 @@ const columns = [
     dataIndex: "name",
   },
   {
-    title: "Product",
+    title: "Product Count",
     dataIndex: "product",
   },
   {
+    title: "Total Price",
+    dataIndex: "price",
+  },
+  {
+    title: "Total Price After Discount",
+    dataIndex: "dprice",
+  },
+  {
     title: "Status",
-    dataIndex: "staus",
+    dataIndex: "status",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    staus: `London, Park Lane no. ${i}`,
-  });
-}
+
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const monthlyDataState = useSelection((state) => state.auth.monthlyData);
-  const yearlyDataState = useSelection((state) => state.auth.yearlyData);
-
+  const monthlyDataState = useSelector((state) => state?.auth?.monthlyData);
+  const yearlyDataState = useSelector((state) => state?.auth?.yearlyData);
+  const orderState = useSelector((state) => state?.auth?.orders.orders);
   const [dataMonthly, setDataMonthly] = useState([]);
   const [dataMonthlySales, setDataMonthlySales] = useState([]);
-
+  const [orderData, setOrderData] = useState([]);
   useEffect(() => {
     dispatch(getMonthlyData());
     dispatch(getYearlyData());
+    dispatch(getOrders());
   }, []);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const Dashboard = () => {
       "December",
     ];
     let data = [];
-    let monthlyOrderCount =[]
+    let monthlyOrderCount = [];
     for (let index = 0; index < monthlyDataState?.length; index++) {
       const element = monthlyDataState[index];
       data.push({
@@ -74,13 +78,24 @@ const Dashboard = () => {
         sales: element?.count,
       });
     }
-    setDataMonthly(data)
-    setDataMonthlySales(monthlyOrderCount)
-  }, [monthlyDataState]);
+    setDataMonthly(data);
+    setDataMonthlySales(monthlyOrderCount);
+    const data1 = [];
+    for (let i = 0; i < orderState?.length; i++) {
+      data1.push({
+        key: i,
+        name: orderState[i].user.firstname + orderState[i].user.lastname,
+        product: orderState[i].orderItems?.length,
+        price: orderState[i]?.totalPrice,
+        dprice: orderState[i]?.totalPriceAfterDiscount,
+        status: orderState[i]?.orderStaus,
+      });
+    }
+    setOrderData(data1);
+  }, [orderState]);
 
-  
   const config = {
-    data:dataMonthly,
+    data: dataMonthly,
     xField: "type",
     yField: "income",
     color: ({ type }) => {
@@ -108,81 +123,81 @@ const Dashboard = () => {
       },
     },
   };
-   const config2 = {
-     data: dataMonthlySales,
-     xField: "type",
-     yField: "sales",
-     color: ({ type }) => {
-       return "#ffd333";
-     },
-     label: {
-       position: "middle",
-       style: {
-         fill: "#FFFFFF",
-         opacity: 1,
-       },
-     },
-     xAxis: {
-       label: {
-         autoHide: true,
-         autoRotate: false,
-       },
-     },
-     meta: {
-       type: {
-         alias: "Month",
-       },
-       sales: {
-         alias: "sales",
-       },
-     },
-   };
+  const config2 = {
+    data: dataMonthlySales,
+    xField: "type",
+    yField: "sales",
+    color: ({ type }) => {
+      return "#ffd333";
+    },
+    label: {
+      position: "middle",
+      style: {
+        fill: "#FFFFFF",
+        opacity: 1,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      type: {
+        alias: "Month",
+      },
+      sales: {
+        alias: "Sales",
+      },
+    },
+  };
   return (
     <div>
       <h3 className="mb-4 title">Dashboard</h3>
       <div className="d-flex justify-content-between align-items-center gap-3">
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total income</p>
-            <h4 className="mb-0 sub-title">RS.{yearlyDataState[0].amount}</h4>
+            <p className="desc">Total Income</p>
+            <h4 className="mb-0 sub-title">
+              ${yearlyDataState && yearlyDataState[0]?.amount}
+            </h4>
           </div>
           <div className="d-flex flex-column align-items-end">
-           
-            <p className="mb-0  desc">Income in last year from today </p>
+            <p className="mb-0  desc">Income in Last Year from Today</p>
           </div>
         </div>
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
             <p className="desc">Total Sales</p>
-            <h4 className="mb-0 sub-title">Data{yearlyDataState[0].count}</h4>
+            <h4 className="mb-0 sub-title">
+              {yearlyDataState && yearlyDataState[0]?.count}
+            </h4>
           </div>
           <div className="d-flex flex-column align-items-end">
-       
-            <p className="mb-0  desc">Sales in last year from today </p>
+            <p className="mb-0  desc">Sales in Last Year from Today</p>
           </div>
         </div>
       </div>
-
-      <div className="d-flex  justify-content-between gap-3">
-        <div className="mt-4 flex-glow-1 w-50">
+      <div className="d-flex justify-content-between gap-3">
+        <div className="mt-4 flex-grow-1 w-50">
           <h3 className="mb-5 title">Income Statics</h3>
           <div>
             <Column {...config} />
           </div>
         </div>
-
-        <div className="d-flex  justify-content-between gap-3">
-          <div className="mt-4 flex-glow-1 w-50">
-            <h3 className="mb-5 title">sales Statics</h3>
-            <div>
-              <Column {...config2} />
-            </div>
+        <div className="mt-4 flex-grow-1 w-50">
+          <h3 className="mb-5 title">Sales Statics</h3>
+          <div>
+            <Column {...config2} />
           </div>
         </div>
       </div>
       <div className="mt-4">
         <h3 className="mb-5 title">Recent Orders</h3>
-        <div></div>
+        <div>
+          <Table columns={columns} dataSource={orderData} />
+        </div>
       </div>
     </div>
   );

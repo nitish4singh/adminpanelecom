@@ -139,7 +139,6 @@ export const couponSlice = createSlice({
         state.couponDiscount = action.payload[0].discount;
         state.couponExpiry = action.payload[0].expiry;
       })
-      
       .addCase(updateACoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;

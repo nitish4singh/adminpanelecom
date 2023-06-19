@@ -7,7 +7,6 @@ import {
   AiOutlineBgColors,
 } from "react-icons/ai";
  //import { RiCouponLine } from "react-icons/ri";
- import {RiCouponLine} from "react-icons"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
